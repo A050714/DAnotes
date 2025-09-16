@@ -28,7 +28,6 @@
         overflow: auto;
     }
 
-
     >input {
         width: 100%;
         height: 24px;
@@ -54,10 +53,6 @@
     }
 }
 
-
-
-
-
 .adjustments_wrapper {
     position: relative;
     width: 100%;
@@ -71,7 +66,6 @@
     right: 0;
     display: flex;
     justify-content: space-between;
-    
     >div {
         display: flex;
         flex-direction: row;
@@ -122,7 +116,6 @@
     background-color: #0D3240;
 }
 
-
 .fullBtn{
     margin-left: 8px ;
     color: white !important;
@@ -140,7 +133,6 @@
     background-color: #FC2D1C;
     border-color: #FC2D1C;
 }
-
 
 .btn{
     margin-left: 8px ;

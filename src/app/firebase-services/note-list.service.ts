@@ -1,7 +1,7 @@
 import { AsyncPipe } from '@angular/common';
 import { Injectable, inject } from '@angular/core';
 import { Note } from '../interfaces/note.interface';
-import { Firestore,query, where, collection, orderBy, limit, collectionData, onSnapshot, doc, addDoc, updateDoc, deleteDoc } from '@angular/fire/firestore';
+import { Firestore, query, where, collection, orderBy, limit, collectionData, onSnapshot, doc, addDoc, updateDoc, deleteDoc } from '@angular/fire/firestore';
 import { elementAt } from 'rxjs';
 @Injectable({
   providedIn: 'root'
@@ -23,32 +23,22 @@ export class NoteListService {
   }
 
   async deleteNote(colId: "notes" | "trash", docId: string) {
-    await deleteDoc(this.getSingleDocRef(colId, docId)).catch (
-      (err) => {console.log(err)}
+    await deleteDoc(this.getSingleDocRef(colId, docId)).catch(
+      (err) => { console.log(err) }
     )
   }
-
-  // async addNote(item: Note, colId:"notes" | "trash") {
-  //   await addDoc(this.getNotesRef(), item).catch(
-  //     (err) => { console.error(err) }
-  //   ).then(
-  //     (docRef) => { console.log("Document written with ID: ", docRef?.id); }
-  //   )
-  // }
 
   async addNote(item: Note, colId: "notes" | "trash") {
     try {
       let collectionRef;
-  
       if (colId === "notes") {
         collectionRef = collection(this.firestore, "notes");
       } else if (colId === "trash") {
         collectionRef = collection(this.firestore, "trash");
       }
-       else {
+      else {
         throw new Error("Invalid collection ID");
       }
-  
       const docRef = await addDoc(collectionRef, item);
       console.log("Document written with ID:", docRef.id);
     } catch (err) {
@@ -60,10 +50,9 @@ export class NoteListService {
     if (note.id) {
       let docRef = this.getSingleDocRef(this.getColIdFromNote(note), note.id);
       await updateDoc(docRef, this.getCleanJson(note)).catch(
-        (err) => {console.log(err);}
+        (err) => { console.log(err); }
       );
     }
-
   }
 
   getCleanJson(note: Note): {} {
@@ -91,7 +80,6 @@ export class NoteListService {
       content: obj.content || "",
       marked: obj.marked || false,
     }
-
   }
 
   ngonDestroy() {
@@ -105,7 +93,6 @@ export class NoteListService {
       this.trashNotes = []
       list.forEach(element => {
         this.trashNotes.push(this.setNoteObject(element.data(), element.id));
-
       })
     });
   }
@@ -116,18 +103,16 @@ export class NoteListService {
       this.normalNotes = []
       list.forEach(element => {
         this.normalNotes.push(this.setNoteObject(element.data(), element.id));
-
       })
     });
   }
 
   subMarkedNotesList() {
-    const q = query(this.getNotesRef(),where("marked","==",true));
+    const q = query(this.getNotesRef(), where("marked", "==", true));
     return onSnapshot(q, (list) => {
       this.normalMarkedNotes = []
       list.forEach(element => {
         this.normalMarkedNotes.push(this.setNoteObject(element.data(), element.id));
-
       })
     });
   }

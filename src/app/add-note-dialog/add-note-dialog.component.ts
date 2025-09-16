@@ -25,7 +25,6 @@ export class AddNoteDialogComponent {
   }
 
   addNote() {
-
     let note:Note = {
       type: "note",
       title: this.title,

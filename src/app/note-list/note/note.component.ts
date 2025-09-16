@@ -56,13 +56,11 @@ export class NoteComponent {
       this.noteService.addNote(this.note, "notes");
       this.noteService.deleteNote("trash", docID);
     }
-
   }
 
   deleteNote() {
     if (this.note.id) {
       this.noteService.deleteNote("trash", this.note.id);
-      
     }
   }
 

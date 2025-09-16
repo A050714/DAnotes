@@ -47,10 +47,4 @@ export class NoteListComponent {
       this.favFilter = "all";
     }
   }
-
-
-
-
-
-
 }
