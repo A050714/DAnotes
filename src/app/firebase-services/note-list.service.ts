@@ -44,7 +44,8 @@ export class NoteListService {
         collectionRef = collection(this.firestore, "notes");
       } else if (colId === "trash") {
         collectionRef = collection(this.firestore, "trash");
-      } else {
+      }
+       else {
         throw new Error("Invalid collection ID");
       }
   
@@ -111,7 +112,7 @@ export class NoteListService {
 
   subNotesList() {
     const q = query(this.getNotesRef(), limit(100));
-    return onSnapshot(this.getNotesRef(), (list) => {
+    return onSnapshot(q, (list) => {
       this.normalNotes = []
       list.forEach(element => {
         this.normalNotes.push(this.setNoteObject(element.data(), element.id));
@@ -121,7 +122,7 @@ export class NoteListService {
   }
 
   subMarkedNotesList() {
-    const q = query(this.getNotesRef(),where("marked","==",false), orderBy('title'), limit(100));
+    const q = query(this.getNotesRef(),where("marked","==",true));
     return onSnapshot(q, (list) => {
       this.normalMarkedNotes = []
       list.forEach(element => {
